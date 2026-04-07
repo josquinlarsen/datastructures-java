@@ -8,7 +8,7 @@ public class Main {
         String[] fruits = {"apple", "banana", "kumquat"};
         StaticArray<String> sa2 = new StaticArray<>();
         for (int i = 0; i < 3; i++) {
-            sa2.set(i, fruits[i]);
+            sa2.append(fruits[i]);
         }
 
         System.out.println(sa);

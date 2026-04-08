@@ -6,7 +6,6 @@ class DynamicArrayException extends StaticArrayException {
 
 public class DynamicArray<T> extends StaticArray<T>{
 
-    @SuppressWarnings("unchecked")
     public DynamicArray(int capacity) throws DynamicArrayException, StaticArrayException{
         super(capacity);
     }
@@ -18,11 +17,12 @@ public class DynamicArray<T> extends StaticArray<T>{
     @Override
     public String toString() {
         StringBuilder arrSpecs = new StringBuilder("Size/Cap: " +size+"/"+capacity);
-
+        String arrayType = this.getClass().getSimpleName();
         String type = "Empty";
         if (data[0] != null) type = data[0].getClass().getSimpleName();
 
-        StringBuilder sb = new StringBuilder("DynamicArray<"+type+">:" +arrSpecs+" [");
+        StringBuilder sb = new StringBuilder(arrayType+"<"+type+">:" +arrSpecs+" [");
+
         for (int i = 0; i < capacity; i++ ) {
             sb.append(data[i]);
             if (i < capacity - 1) sb.append(", ");
@@ -34,13 +34,17 @@ public class DynamicArray<T> extends StaticArray<T>{
 
     private void resize(T[] arr, int newCapacity) throws DynamicArrayException{
         if (newCapacity > 0 && newCapacity > size) {
-            DynamicArray<T> newArray = new DynamicArray<>(newCapacity);
-
+            try {
+            StaticArray<T> newArray = new StaticArray<>(newCapacity);
+ 
             for (int i = 0; i < size; i++) {
                 newArray.data[i] = arr[i];
             }
             data = newArray.data;
             capacity = newCapacity;
+            } catch (StaticArrayException e) {
+                System.out.println("Resize error: " + e.getMessage());
+            }
         }
     }
 

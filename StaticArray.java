@@ -42,10 +42,11 @@ public class StaticArray<T> {
 
     @Override
     public String toString() {
+        String arrayType = this.getClass().getSimpleName();
         String type = "Empty";
         if (data[0] != null) type = data[0].getClass().getSimpleName();
 
-        StringBuilder sb = new StringBuilder("StaticArray<"+type+">: [");
+        StringBuilder sb = new StringBuilder(arrayType+"<"+type+">: [");
         for (int i = 0; i < capacity; i++ ) {
             sb.append(data[i]);
             if (i < capacity - 1) sb.append(", ");

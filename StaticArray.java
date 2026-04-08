@@ -18,9 +18,9 @@ class EmptyArrayException extends StaticArrayException {
 
 public class StaticArray<T> {
     // T = Generic, to handle flexible types
-    private T[] data;
-    private int size;
-    private int capacity;
+    protected T[] data;
+    protected int size; // number of elements in array
+    protected int capacity; // # of elements array can store
 
     @SuppressWarnings("unchecked")
     public StaticArray(int capacity) throws StaticArrayException {
@@ -29,23 +29,26 @@ public class StaticArray<T> {
         }
         // cast object to T (workaround)
         data = (T[]) new Object[capacity];
-        size = capacity;
-        this.capacity = 0;
+        size = 0;
+        this.capacity = capacity;
     }
 
     @SuppressWarnings("unchecked")
     public StaticArray() {
         data = (T[]) new Object[10];
-        size = 10;
-        capacity = 0;
+        size = 0;
+        capacity = 10;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("StaticArray: [");
-        for (int i = 0; i < size; i++ ) {
+        String type = "Empty";
+        if (data[0] != null) type = data[0].getClass().getSimpleName();
+
+        StringBuilder sb = new StringBuilder("StaticArray<"+type+">: [");
+        for (int i = 0; i < capacity; i++ ) {
             sb.append(data[i]);
-            if (i < size - 1) sb.append(", ");
+            if (i < capacity - 1) sb.append(", ");
         }
         sb.append("]");
 
@@ -61,27 +64,38 @@ public class StaticArray<T> {
     }
 
     public T get(int index) throws InvalidIndexException{
-        if (index < 0 || index > size - 1 ) {
+        if (index < 0 || index > capacity - 1 ) {
             throw new InvalidIndexException("Index out of bounds");
         }
         return data[index];
     }
 
     public void set(int index, T item) throws InvalidIndexException {        
-        if (index < 0 || index > size - 1 ) {
+        if (index < 0 || index > capacity - 1 ) {
             throw new InvalidIndexException("Index out of bounds");
+        }
+        if (data[index] == null) {
+            size++;
         }
         data[index] = item;
     }
 
     public void append(T item) {
-        if (capacity < size) {
-            data[capacity] = item;
-            capacity++;
+        if (size < capacity) {
+            data[size] = item;
+            size++;
             return;
         } 
-        data[size - 1] = item;
+        data[capacity - 1] = item;
     }
 
-
+    public T pop() throws EmptyArrayException{
+        if (size == 0) {
+            throw new EmptyArrayException("Array is empty");
+        }
+        T value = data[size - 1];
+        data[size - 1] = null; 
+        size--;
+        return value;
+    }
 }

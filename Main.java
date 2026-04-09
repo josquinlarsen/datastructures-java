@@ -5,7 +5,7 @@ public class Main {
             sa.append(i + 1);
         }
 
-        System.out.println(sa);
+        // System.out.println(sa);
 
         // String[] fruits = {"apple", "banana", "kumquat"};
         // StaticArray<String> sa2 = new StaticArray<>();
@@ -22,21 +22,33 @@ public class Main {
         // System.out.println(sa2);
 
         DynamicArray<Integer> da = new DynamicArray<>();
-        
+        System.out.println(da);
         for (int i = 0; i < 10; i++) {
-            da.append(i + 1);
+            da.insert(i + 1, i);
             System.out.println(da);
         }
 
-        DynamicArray<String> da2 = new DynamicArray<>();
+        // System.out.println(da);
+        // int end = da.length();
+        // for (int i = (end - 1); i > 0; i--) {
+        //     da.remove(i);
+        //     System.out.println(da);
+        // }
+        
+        // for (int i = 0; i > end; i++) {
+        //     da.insert(27, 0);
+        //     System.out.println(da);
+        // }
 
-        for (int i = 0; i < 8; i++) {
+    //     DynamicArray<String> da2 = new DynamicArray<>();
+
+    //     for (int i = 0; i < 8; i++) {
             
-            da2.append("a" + (i + (i * 2) / 3));
-            System.out.println(da);
-        }
+    //         da2.append("a" + (i + (i * 2) / 3));
+    //         System.out.println(da);
+    //     }
 
-        System.out.println(da2);
+    //     System.out.println(da2);
     }
 
 }

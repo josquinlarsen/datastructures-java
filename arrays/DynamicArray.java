@@ -1,3 +1,5 @@
+package arrays;
+
 class DynamicArrayException extends StaticArrayException {
     public DynamicArrayException(String message) {
         super(message);
@@ -70,7 +72,7 @@ public class DynamicArray<T> extends StaticArray<T>{
         data[size] = item;
         size++;
     }
-
+    // remove item @ index
     public void remove(int index) throws EmptyArrayException, InvalidIndexException {
         if (isEmpty()) {
             throw new EmptyArrayException("Array is empty");
@@ -86,7 +88,7 @@ public class DynamicArray<T> extends StaticArray<T>{
         }
         size--;
     }
-
+    // insert item @ index
     public void insert(T item, int index) throws InvalidIndexException {
         if (0 > index || index > size) {
             throw new InvalidIndexException("Invalid index");
@@ -105,6 +107,8 @@ public class DynamicArray<T> extends StaticArray<T>{
         size++;
     }
 
+    // pop item from array
+    @Override
     public T pop() throws EmptyArrayException {
         if (isEmpty()) {
             throw new EmptyArrayException("Array is empty");

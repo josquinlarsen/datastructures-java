@@ -1,3 +1,5 @@
+package arrays;
+
 class StaticArrayException extends Exception {
     public StaticArrayException(String message) {
         super(message);
@@ -64,6 +66,10 @@ public class StaticArray<T> {
         return capacity;
     }
 
+    public Boolean isEmpty() {
+        return size == 0;
+    }
+
     public T get(int index) throws InvalidIndexException{
         if (index < 0 || index > capacity - 1 ) {
             throw new InvalidIndexException("Index out of bounds");
@@ -75,9 +81,9 @@ public class StaticArray<T> {
         if (index < 0 || index > capacity - 1 ) {
             throw new InvalidIndexException("Index out of bounds");
         }
-        if (data[index] == null) {
-            size++;
-        }
+        // if (data[index] == null) {
+        //     size++;
+        // }
         data[index] = item;
     }
 
@@ -91,7 +97,7 @@ public class StaticArray<T> {
     }
 
     public T pop() throws EmptyArrayException{
-        if (size == 0) {
+        if (isEmpty()) {
             throw new EmptyArrayException("Array is empty");
         }
         T value = data[size - 1];

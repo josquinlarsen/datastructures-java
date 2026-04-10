@@ -25,9 +25,8 @@ public class Queue<T> extends StaticArray<T> {
     }
     
     public void enqueue(T item) {
-        System.out.print("size before: "+size+ " ");
         if (size == capacity) { resize(capacity * 2); }
-        System.out.println("size after" +size +" ");
+
         try {
             set(back, item);
             back = increment(back);

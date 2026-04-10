@@ -27,7 +27,12 @@ public class LinkedList<T> {
 
         StringBuilder sb = new StringBuilder(listType+"<"+type+">: { ");
         Node<T> current = head.next; // sentinel node
-        
+
+        if (size == 0) {
+            sb.append(" }");
+            return sb.toString();
+        }
+
         while (current != null) {
             sb.append(current.data);
             if (current.next != null) sb.append(" -> ");
@@ -41,6 +46,10 @@ public class LinkedList<T> {
 
     public int size() {
         return size;
+    }
+
+    public Boolean isEmpty() {
+        return size == 0;
     }
 
     public void insertFront(T data) {
@@ -73,4 +82,52 @@ public class LinkedList<T> {
         current.next = node;
         size++;
     }
+
+    public void removeAtIndex(int index) throws LinkedListException {
+        if (isEmpty()) throw new LinkedListException("Can't remove from empty list");
+        if (index < 0 || index >= size()) {
+            throw new LinkedListException("Index out of bounds");
+        }
+        Node<T> current = head;
+        Node<T> prev = null;
+        if (index == 0) {
+            head = head.next;
+            size--;
+            return;
+        }
+        for (int i = 0; i < index; i++)  {
+            prev = current;
+            current = current.next;
+        }
+        
+        prev.next = current.next;
+        size--;
+    }
+    // remove all instaces of a value
+    public Boolean remove(T item) {
+        Node<T> current = head;
+        Node<T> prev = null;
+        Boolean removed = false;
+
+        if (head.data == item) {
+            head = head.next;
+            removed = true;
+            size--;
+            current = head.next;
+        }
+
+        while (current.next != null) {
+            if (current.data == item) {
+                prev.next = current.next;
+                size--;
+                removed = true;
+            }
+            prev = current;
+            current = current.next;
+        }
+        
+        return removed;
+    }
+
+
 }

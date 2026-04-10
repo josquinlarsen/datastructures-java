@@ -4,7 +4,9 @@ public class Main {
     public static void main(String[] args) {
         LinkedList<Integer> ll = new LinkedList<>();
         for (int i = 0; i < 10; i++) {
-            ll.insertFront(i);
+            if ((i & 1) == 0) {
+                ll.insertFront(i);
+            } else { ll.insertFront(27);}
         }
         System.out.print("size: " +ll.size()+" ");
         System.out.println(ll);
@@ -16,13 +18,27 @@ public class Main {
         // System.out.print("size: " +ll2.size()+" ");
         // System.out.println(ll2);
         
-        for (int i = 0; i < 7; i+= 2) {
+        // for (int i = 0; i < 7; i+= 2) {
+        //     try {
+        //         ll.insert(i, 27);
+        //         System.out.println(ll);
+        //     } catch (LinkedListException e) {
+        //         System.out.println("error: "+ e.getMessage());
+        //     }
+        // }
+
+        // ll.remove(27);
+        for (int i = 0; i < 10; i++) {
             try {
-                ll.insert(i, 27);
+                ll.removeAtIndex(0);
+                System.out.print("size: " +ll.size()+" ");
                 System.out.println(ll);
             } catch (LinkedListException e) {
-                System.out.println("error: "+ e.getMessage());
+                System.out.println("error: " +e.getMessage());
             }
+             
         }
+       
+        System.out.println(ll);
     }
 }

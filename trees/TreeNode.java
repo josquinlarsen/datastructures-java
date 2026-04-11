@@ -6,10 +6,11 @@ public class TreeNode<T> {
     protected TreeNode<T> right;
 
     public TreeNode(T data) {
-        this.data = data;
+        this.data =  data;
         parent = null;
         left = null;
         right = null;
     }
+
 
 }

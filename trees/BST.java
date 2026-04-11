@@ -5,10 +5,51 @@ class BSTException extends Exception{
         super(message);
     }
 }
-public class BST<T> extends BinaryTree<T>{
+public class BST<T extends Comparable<T>> extends BinaryTree<T> {
     public BST() {
         super();
     }
+
+    private int compareTo(T a, T b) {
+        return a.compareTo(b);
+    }
+
+    @Override
+    public String toString() {
+        return toStringHelper(root, 0, "Root: ");
+    }
+
+    private String toStringHelper(TreeNode<T> node, int depth, String prefix) {
+        if (node == null) return "";
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append("    ".repeat(depth))
+        .append(prefix)
+        .append(node.data)
+        .append("\n");
+        
+        if (node.left != null || node.right != null) {
+            sb.append(toStringHelper(node.right, depth + 1, "R: "));
+            sb.append(toStringHelper(node.left,  depth + 1, "L: "));
+        }
+        
+        return sb.toString();
+    }
+
+    // public inOrder() {
+    //     List<T> arr = new ArrayList<>();
+    //     arr = inOrderHelper(root, arr);
+
+    // }
+
+    // private ArrayList inOrderHelper(TreeNode<T> node, ArrayList arr) {
+    //     if (node == null) {
+    //         return arr;
+    //     }
+    //     inOrderHelper(node.left, arr);
+    //     arr.append(node.data);
+    //     inOrderHelper(node.right, arr);
+    // }
 
     public void add(T data) {
 
@@ -17,12 +58,17 @@ public class BST<T> extends BinaryTree<T>{
 
         while (node != null) {
             parent = node;
-            if (data < node.data) node = node.left;
+            int compare = compareTo(data, node.data);
+            if (compare < 0) node = node.left;
             else node = node.right;
         }
         TreeNode<T> addNode = new TreeNode<>(data);
-        if (parent == null) root = addNode;
-        else if (data < parent.left.data) parent.left = addNode;
+        if (parent == null) {
+            root = addNode;
+            return;
+        }
+        int compare = compareTo(data, parent.data);
+        if (compare < 0) parent.left = addNode;
         else parent.right = addNode;
     }
 }

@@ -1,23 +1,5 @@
 package arrays;
 
-class StaticArrayException extends Exception {
-    public StaticArrayException(String message) {
-        super(message);
-    }
-}
-
-class InvalidIndexException extends StaticArrayException {
-    public InvalidIndexException(String message) {
-        super(message);
-    }
-}
-
-class EmptyArrayException extends StaticArrayException {
-    public EmptyArrayException(String message) {
-        super(message);
-    }
-}
-
 public class StaticArray<T> {
     // T = Generic, to handle flexible types
     protected T[] data;

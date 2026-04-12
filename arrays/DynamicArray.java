@@ -1,11 +1,5 @@
 package arrays;
 
-class DynamicArrayException extends StaticArrayException {
-    public DynamicArrayException(String message) {
-        super(message);
-    }
-}
-
 public class DynamicArray<T> extends StaticArray<T>{
 
     public DynamicArray(int capacity) throws DynamicArrayException, StaticArrayException{

@@ -1,4 +1,6 @@
 package trees;
+import arrays.DynamicArray;
+import arrays.StaticArrayException;
 
 class BSTException extends Exception{
     public BSTException(String message) {
@@ -36,20 +38,45 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
         return sb.toString();
     }
 
-    // public inOrder() {
-    //     List<T> arr = new ArrayList<>();
-    //     arr = inOrderHelper(root, arr);
+    private DynamicArray<T> inOrder() {
+        DynamicArray<T> arr = null; 
+        try { 
+            arr = new DynamicArray<>();
+            inOrderHelper(root, arr); 
+            return arr;
+        } catch (StaticArrayException e) {
+            System.out.println("error: " + e.getMessage());
+        }  
 
-    // }
+        return arr;
+    }
 
-    // private ArrayList inOrderHelper(TreeNode<T> node, ArrayList arr) {
-    //     if (node == null) {
-    //         return arr;
-    //     }
-    //     inOrderHelper(node.left, arr);
-    //     arr.append(node.data);
-    //     inOrderHelper(node.right, arr);
-    // }
+    private void inOrderHelper(TreeNode<T> node, DynamicArray<T> arr) {
+        if (node == null) {
+            return;
+        }
+        inOrderHelper(node.left, arr);
+        arr.append(node.data);
+        inOrderHelper(node.right, arr);
+    }
+
+    public Boolean validBST() {
+        DynamicArray<T> arr = inOrder();
+        for (int i = 0; i < size - 1; i++) {
+            try {
+                int check = arr.get(i).compareTo(arr.get(i - 1));
+                if (check < 0) {
+                    System.out.print("invalid BST");
+                    return false;
+                }
+            } catch (StaticArrayException e) {
+                System.out.println("Invalid index: " + e.getMessage());
+            }
+        }
+        System.out.println("Valid BST");
+        return true;
+    }
+
 
     public void add(T data) {
 

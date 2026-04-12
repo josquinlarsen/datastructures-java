@@ -8,5 +8,6 @@ public class Main {
             bst.add(n);
         }
         System.out.print(bst);
+        System.out.println(bst.validBST());
     }
 }

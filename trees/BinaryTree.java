@@ -15,6 +15,14 @@ public class BinaryTree<T> {
         size = 0;
     }
 
+    public int size() {
+        return size;
+    }
+
+    public TreeNode<T> getRoot() {
+        return root;
+    }
+
     public Boolean isRoot(TreeNode<T> node) {
         return node == root;
     }

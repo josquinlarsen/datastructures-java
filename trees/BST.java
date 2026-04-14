@@ -1,6 +1,7 @@
 package trees;
 
 import arrays.DynamicArray;
+import arrays.Stack;
 import arrays.StaticArrayException;
 
 class BSTException extends Exception{
@@ -30,12 +31,15 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
 
     @Override
     public String toString() {
+        if (size() == 0 || getRoot() == null) {
+            return "Empty Tree";
+        }
         return toStringHelper(root, 0, "Root: ");
     }
 
     private String toStringHelper(TreeNode<T> node, int depth, String prefix) {
         if (node == null) return "";
-        
+        System.out.println(node);
         StringBuilder sb = new StringBuilder();
         sb.append("    ".repeat(depth))
         .append(prefix)
@@ -43,14 +47,14 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
         .append("\n");
         
         if (node.left != null || node.right != null) {
-            sb.append(toStringHelper(node.right, depth + 1, "R: "));
             sb.append(toStringHelper(node.left,  depth + 1, "L: "));
-        }
+            sb.append(toStringHelper(node.right, depth + 1, "R: "));
+        } 
         
         return sb.toString();
     }
 
-    private DynamicArray<T> inOrder() {
+    public DynamicArray<T> inOrder() {
         DynamicArray<T> arr = null; 
         try { 
             arr = new DynamicArray<>();
@@ -72,18 +76,53 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
         inOrderHelper(node.right, arr);
     }
 
+    public DynamicArray<T> preOrder() {
+        DynamicArray<T> arr = null; 
+        try { 
+            arr = new DynamicArray<>();
+            preOrderHelper(root, arr); 
+            return arr;
+        } catch (StaticArrayException e) {
+            System.out.println("error: " + e.getMessage());
+        }  
+
+        return arr;
+    }
+
+    private void preOrderHelper(TreeNode<T> node, DynamicArray<T> arr) {
+        if (node == null) {
+            return;
+        }
+        arr.append(node.data);
+        inOrderHelper(node.left, arr);
+        inOrderHelper(node.right, arr);
+    }
+
     public Boolean validBST() {
-        DynamicArray<T> arr = inOrder();
-        for (int i = 0; i < size - 1; i++) {
-            try {
-                int check = arr.get(i).compareTo(arr.get(i - 1));
-                if (check < 0) {
-                    System.out.print("invalid BST");
-                    return false;
+        try {
+            Stack<TreeNode<T>> stack = new Stack<>();
+            stack.push(root);
+            while (stack.isEmpty() == false) {
+                TreeNode<T> node = stack.pop();
+                if (node != null) {
+                    if (node.left != null) {
+                        int check = node.left.data.compareTo(node.data);
+                        if (check >= 0) {
+                            System.out.println("Invalid BST.");
+                            return false;
+                        }
+                    } 
+                    if (node.right != null) {
+                        int check = node.right.data.compareTo(node.data);
+                        if (check < 0) {
+                            System.out.println("Invalid BST.");
+                            return false;
+                        }
+                    }
                 }
-            } catch (StaticArrayException e) {
-                System.out.println("Invalid index: " + e.getMessage());
             }
+        } catch (StaticArrayException e){
+            System.out.println("error: " +e.getMessage());
         }
         System.out.println("Valid BST");
         return true;
@@ -103,6 +142,7 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
         TreeNode<T> addNode = new TreeNode<>(data);
         if (parent == null) {
             root = addNode;
+            size++;
             return;
         }
         int compare = compareTo(data, parent.data);
@@ -113,6 +153,7 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
             parent.right = addNode;
         }
         addNode.parent = parent;
+        size++;
     }
 
     public Boolean remove(T value) {
@@ -125,7 +166,7 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
         } else if (node.left == null || node.right == null) {
             removeOneSubtree(parent, node);
         } else removeTwoSubtrees(parent, node);
-
+        size--;
         return true;
     }
 
@@ -194,7 +235,12 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
         if (parent != null) {
             if (parent.left == node) parent.left = replaceNode;
             else parent.right = replaceNode;
+            
         } else root = replaceNode;
+        
+        if (replaceNode != null) {
+            replaceNode.parent = parent;
+        }
     }
 
     private void removeNoSubtrees(TreeNode<T> parent, TreeNode<T> node) {
@@ -224,15 +270,35 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
     private void removeTwoSubtrees(TreeNode<T> parent, TreeNode<T> node) {
         TreeNode<T> successor = inOrderSuccessor(node); // have 0 or 1 (right) child
         TreeNode<T> parentSuccessor = successor.parent;
-
+        replace(parentSuccessor, successor, successor.right);
+        replace(parent, node, successor);
         successor.left = node.left;
-        
-        if (successor != node.right) {
-            parentSuccessor.left = successor.right;
-            successor.right = node.right;
+        if (successor.left != null) {
+            successor.left.parent = successor;
+        }
+        successor.right = node.right;
+        if (successor.right != null) {
+            successor.right.parent = successor;
         }
 
-        replace(parent, node, successor);
+        // successor.left = node.left;
+        // node.left.parent = successor;
+        
+        // if (successor != node.right) {
+        //     successor.parent.left = successor.right;
+        //     successor.right = node.right;
+        //     successor.right.parent = successor.parent;
+        // }
+        
+        // System.out.println("before: " +successor);
+        // replace(successor.parent, node, successor);
+        // // successor.parent = parent;
+        // // parentSuccessor.parent = successor;
+        // System.out.println(parent);
+        // System.out.println(node);
+        // System.out.println(successor);
+        // System.out.println("root: " +root);
+         
     }
 
 }

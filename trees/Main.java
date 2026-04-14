@@ -3,6 +3,7 @@ package trees;
 public class Main {
     public static void main(String[] args) {
         BST<Integer> bst = new BST<>();
+        BST<Integer> bst0 = new BST<>();
         BST<Integer> bst1 = new BST<>();
         BST<Integer> bst2 = new BST<>();
         BST<Integer> bst3 = new BST<>();
@@ -46,7 +47,7 @@ public class Main {
             bst4.add(n);
         }
         for (int n : arr5) {
-            bst.add(n);
+            bst5.add(n);
         }
         for (int n : arr6) {
             bst6.add(n);
@@ -73,68 +74,95 @@ public class Main {
         // System.out.println(bst.validBST());
         // System.out.println(bst.contains(55));
         // System.out.println(bst.contains(27));
-        System.out.println("Remove bst:");
-        System.out.println(bst.remove(1));
-        System.out.println(bst);
+        // System.out.println("Remove bst:");
+        // System.out.println(bst.remove(1));
+        // System.out.println(bst);
 
-        System.out.println("Remove bst1:");
-        System.out.println(bst1);
-        System.out.println(bst1.remove(-15));
-        System.out.println(bst1);
+        // System.out.println("Remove bst1:");
+        // System.out.println(bst1);
+        // System.out.println(bst1.remove(-15));
+        // System.out.println(bst1);
 
-        System.out.println("Remove bst2:");
-        System.out.println(bst2);
-        System.out.println(bst2.remove(40));
-        System.out.println(bst2);
+        // System.out.println("Remove bst2:");
+        // System.out.println(bst2);
+        // System.out.println(bst2.remove(40));
+        // System.out.println(bst2);
 
-        System.out.println("Remove bst3:");
-        System.out.println(bst3);
-        System.out.println(bst3.remove(20));
-        System.out.println(bst3);
+        // System.out.println("Remove bst3:");
+        // System.out.println(bst3);
+        // System.out.println(bst3.remove(20));
+        // System.out.println(bst3);
 
-        System.out.println("Remove bst4:");
-        System.out.println(bst4);
-        System.out.println(bst4.remove(-55));
-        System.out.println(bst4);
+        // System.out.println("Remove bst4:");
+        // System.out.println(bst4);
+        // System.out.println(bst4.remove(-55));
+        // System.out.println(bst4);
 
-        System.out.println("Remove bst5:");
-        System.out.println(bst5);
-        System.out.println(bst5.remove(20));
-        System.out.println(bst5);
+        // System.out.println("Remove bst5:");
+        // System.out.println(bst5);
+        // System.out.println(bst5.remove(20));
+        // System.out.println(bst5);
 
-        System.out.println("Remove bst6:");
-        System.out.println(bst6);
-        System.out.println(bst6.remove(10));
-        System.out.println(bst6);
+        // System.out.println("Remove bst6:");
+        // System.out.println(bst6);
+        // System.out.println(bst6.remove(10));
+        // System.out.println(bst6);
 
-        System.out.println("Remove bst7:");
-        System.out.println(bst7);
-        System.out.println(bst7.remove(-80));
-        System.out.println(bst7);
+        // System.out.println("Remove bst7:");
+        // System.out.println(bst7);
+        // System.out.println(bst7.remove(-80));
+        // System.out.println(bst7);
 
-        System.out.println("Remove bst8:");
-        System.out.println(bst8);
-        System.out.println(bst8.remove(60));
-        System.out.println(bst8);
+        // System.out.println("Remove bst8:");
+        // System.out.println(bst8);
+        // System.out.println(bst8.remove(60));
+        // System.out.println(bst8);
 
-        System.out.println("Remove bst9:");
-        System.out.println(bst9);
-        System.out.println(bst9.remove(-65));
-        System.out.println(bst9);
+        // System.out.println("Remove bst9:");
+        // System.out.println(bst9);
+        // System.out.println(bst9.remove(-65));
+        // System.out.println(bst9);
 
-        System.out.println("Remove bst10:");
-        System.out.println(bst10);
-        System.out.println(bst10.remove(10));
-        System.out.println(bst10);
+        // System.out.println("Remove bst10:");
+        // System.out.println(bst10);
+        // System.out.println(bst10.remove(10));
+        // System.out.println(bst10);
 
-        System.out.println("Remove bst11:");
-        System.out.println(bst11);
-        System.out.println(bst11.remove(-20));
-        System.out.println(bst11);
+        // System.out.println("Remove bst11:");
+        // System.out.println(bst11);
+        // System.out.println(bst11.remove(-20));
+        // System.out.println(bst11);
 
-        System.out.println("Remove bst12:");
-        System.out.println(bst12); 
-        System.out.println(bst12.remove(-105));
+        // System.out.println("Remove bst12:");
+        // System.out.println(bst12); 
+        // System.out.println(bst12.remove(-105));
+
+        // System.out.println(bst0);
+
+        // System.out.println(bst12);
+        System.out.println(bst12.preOrder());
+        for (int i = 0; i < 8; i++) {
+            System.out.println("Remove node: "+arr12[i]);
+            bst12.remove(arr12[i]);
+            System.out.println(bst12.preOrder());
+            // System.out.println(bst12.inOrder());
+        }
         System.out.println(bst12);
+        // bst12.remove(-90);
+        // System.out.println(bst12);
+        // System.out.println(bst12.preOrder());
+
+        // bst12.remove(40);
+        // System.out.println(bst12);
+        // System.out.println(bst12.preOrder());
+
+        // bst12.remove(50);
+        // System.out.println(bst12);
+        // System.out.println(bst12.preOrder());
+
+        // System.out.println(bst12);
+
     }
+
 }
+

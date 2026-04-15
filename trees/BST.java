@@ -10,16 +10,6 @@ class BSTException extends Exception{
     }
 }
 
-// class NodePair<T> {
-//     private final TreeNode<T> parent;
-//     private final TreeNode<T> child;
-    
-//     public NodePair(TreeNode<T> parent, TreeNode<T> child) {
-//         this.parent = parent;
-//         this.child = child;
-//     }
-// }
-
 public class BST<T extends Comparable<T>> extends BinaryTree<T> {
     public BST() {
         super();
@@ -200,20 +190,6 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
         }
         return null;
     }
-    // private NodePair<T> inOrderSuccesssor(TreeNode<T> node) {
-       
-    //     TreeNode<T> parent = null;
-    //     TreeNode<T> successor = node.right;
-
-    //     while (successor.left != null) {
-    //         parent = successor;
-    //         successor = successor.left;
-    //     }
-
-    //     NodePair<T> result = new NodePair<>(parent, successor);
-        
-    //     return result;
-    // }
 
     private TreeNode<T> inOrderSuccessor(TreeNode<T> node) {
         TreeNode<T> successor = node.right;
@@ -250,27 +226,11 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
         // root case
         TreeNode<T> child = (node.left != null) ? node.left : node.right;
         replace(parent, node, child);
-        // if (isRoot(node)) {
-        //     if (node.left != null) {
-        //         root = node.left;
-        //     } else root = node.right;
-        //     return;
-        // }
-        // // parent left child = remove node
-        // if (parent.left == node) {
-        //     if (node.left != null) {
-        //         parent.left = node.left;
-        //     } else parent.left = node.right;
-        // } else {
-        //     if (node.left != null) {
-        //         parent.right = node.left;
-        //     } else parent.right = node.right;
-        // }
     }
 
     private void removeTwoSubtrees(TreeNode<T> parent, TreeNode<T> node) {
         TreeNode<T> successor = inOrderSuccessor(node); // have 0 or 1 (right) child
-        if (successor.right != node.right) {
+        if (successor.right != node.right) { // inOrder successor is not right node + leaf
             replace(successor.parent, successor, successor.right);
             successor.right = node.right;
             if (successor.right != null) {
@@ -278,33 +238,12 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
             }
         }
         
-        
-        successor.left = node.left;
+        successor.left = node.left; // reattach left
         if (successor.left != null) {
             successor.left.parent = successor;
         }
         
-
-        replace(parent, node, successor);
-
-        // successor.left = node.left;
-        // node.left.parent = successor;
-        
-        // if (successor != node.right) {
-        //     successor.parent.left = successor.right;
-        //     successor.right = node.right;
-        //     successor.right.parent = successor.parent;
-        // }
-        
-        // System.out.println("before: " +successor);
-        // replace(successor.parent, node, successor);
-        // // successor.parent = parent;
-        // // parentSuccessor.parent = successor;
-        // System.out.println(parent);
-        // System.out.println(node);
-        // System.out.println(successor);
-        // System.out.println("root: " +root);
-         
+        replace(parent, node, successor);     
     }
 
 }

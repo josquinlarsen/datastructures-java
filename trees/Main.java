@@ -139,9 +139,9 @@ public class Main {
 
         // System.out.println(bst0);
 
-        // System.out.println(bst12);
+        System.out.println(bst12);
         System.out.println(bst12.preOrder());
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 13; i++) {
             System.out.println("Remove node: "+arr12[i]);
             bst12.remove(arr12[i]);
             System.out.println(bst12);
@@ -151,7 +151,7 @@ public class Main {
         // System.out.println(bst12);
         // bst12.remove(-110);
         // System.out.println(bst12.preOrder());
-        System.out.println(bst12);
+        // System.out.println(bst12);
         // bst12.remove(-90);
         // System.out.println(bst12);
         // System.out.println(bst12.preOrder());

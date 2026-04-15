@@ -39,7 +39,6 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
 
     private String toStringHelper(TreeNode<T> node, int depth, String prefix) {
         if (node == null) return "";
-        System.out.println(node);
         StringBuilder sb = new StringBuilder();
         sb.append("    ".repeat(depth))
         .append(prefix)
@@ -94,8 +93,8 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
             return;
         }
         arr.append(node.data);
-        inOrderHelper(node.left, arr);
-        inOrderHelper(node.right, arr);
+        preOrderHelper(node.left, arr);
+        preOrderHelper(node.right, arr);
     }
 
     public Boolean validBST() {
@@ -160,12 +159,12 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
         TreeNode<T> node = find(value);
         if (node == null) return false;
         TreeNode<T> parent = node.parent;
-
+     
         if (node.left == null && node.right == null) {
             removeNoSubtrees(parent, node);
-        } else if (node.left == null || node.right == null) {
-            removeOneSubtree(parent, node);
-        } else removeTwoSubtrees(parent, node);
+        } else if (node.left != null && node.right != null) {
+            removeTwoSubtrees(parent, node);
+        } else removeOneSubtree(parent, node);
         size--;
         return true;
     }
@@ -232,12 +231,12 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
     }
 
     private void replace(TreeNode<T> parent, TreeNode<T> node, TreeNode<T> replaceNode) {
-        if (parent != null) {
-            if (parent.left == node) parent.left = replaceNode;
-            else parent.right = replaceNode;
+        if (parent == null) {
+            root = replaceNode;
+        } else if (parent.left == node) { 
+            parent.left = replaceNode;
+        } else parent.right = replaceNode;
             
-        } else root = replaceNode;
-        
         if (replaceNode != null) {
             replaceNode.parent = parent;
         }
@@ -249,37 +248,44 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
 
     private void removeOneSubtree(TreeNode<T> parent, TreeNode<T> node) {
         // root case
-        if (isRoot(node)) {
-            if (node.left != null) {
-                root = node.left;
-            } else root = node.right;
-            return;
-        }
-        // parent left child = remove node
-        if (parent.left == node) {
-            if (node.left != null) {
-                parent.left = node.left;
-            } else parent.left = node.right;
-        } else {
-            if (node.left != null) {
-                parent.right = node.left;
-            } else parent.right = node.right;
-        }
+        TreeNode<T> child = (node.left != null) ? node.left : node.right;
+        replace(parent, node, child);
+        // if (isRoot(node)) {
+        //     if (node.left != null) {
+        //         root = node.left;
+        //     } else root = node.right;
+        //     return;
+        // }
+        // // parent left child = remove node
+        // if (parent.left == node) {
+        //     if (node.left != null) {
+        //         parent.left = node.left;
+        //     } else parent.left = node.right;
+        // } else {
+        //     if (node.left != null) {
+        //         parent.right = node.left;
+        //     } else parent.right = node.right;
+        // }
     }
 
     private void removeTwoSubtrees(TreeNode<T> parent, TreeNode<T> node) {
         TreeNode<T> successor = inOrderSuccessor(node); // have 0 or 1 (right) child
-        TreeNode<T> parentSuccessor = successor.parent;
-        replace(parentSuccessor, successor, successor.right);
-        replace(parent, node, successor);
+        if (successor.right != node.right) {
+            replace(successor.parent, successor, successor.right);
+            successor.right = node.right;
+            if (successor.right != null) {
+                successor.right.parent = successor;
+            }
+        }
+        
+        
         successor.left = node.left;
         if (successor.left != null) {
             successor.left.parent = successor;
         }
-        successor.right = node.right;
-        if (successor.right != null) {
-            successor.right.parent = successor;
-        }
+        
+
+        replace(parent, node, successor);
 
         // successor.left = node.left;
         // node.left.parent = successor;

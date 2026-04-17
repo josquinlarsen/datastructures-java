@@ -3,7 +3,6 @@ package trees;
 public class Main {
     public static void main(String[] args) {
         BST<Integer> bst = new BST<>();
-        BST<Integer> bst0 = new BST<>();
         BST<Integer> bst1 = new BST<>();
         BST<Integer> bst2 = new BST<>();
         BST<Integer> bst3 = new BST<>();

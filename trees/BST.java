@@ -15,7 +15,7 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
         super();
     }
 
-    private int compareTo(T a, T b) {
+    private static int compareTo(T a, T b) {
         return a.compareTo(b);
     }
 
@@ -27,7 +27,7 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
         return toStringHelper(root, 0, "Root: ");
     }
 
-    private String toStringHelper(TreeNode<T> node, int depth, String prefix) {
+    private static String toStringHelper(TreeNode<T> node, int depth, String prefix) {
         if (node == null) return "";
         StringBuilder sb = new StringBuilder();
         sb.append("    ".repeat(depth))
@@ -56,7 +56,7 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
         return arr;
     }
 
-    private void inOrderHelper(TreeNode<T> node, DynamicArray<T> arr) {
+    private static void inOrderHelper(TreeNode<T> node, DynamicArray<T> arr) {
         if (node == null) {
             return;
         }
@@ -78,7 +78,7 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
         return arr;
     }
 
-    private void preOrderHelper(TreeNode<T> node, DynamicArray<T> arr) {
+    private static void preOrderHelper(TreeNode<T> node, DynamicArray<T> arr) {
         if (node == null) {
             return;
         }
@@ -191,7 +191,7 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
         return null;
     }
 
-    private TreeNode<T> inOrderSuccessor(TreeNode<T> node) {
+    private static TreeNode<T> inOrderSuccessor(TreeNode<T> node) {
         TreeNode<T> successor = node.right;
 
         while (successor.left != null) {
@@ -223,7 +223,6 @@ public class BST<T extends Comparable<T>> extends BinaryTree<T> {
     }
 
     private void removeOneSubtree(TreeNode<T> parent, TreeNode<T> node) {
-        // root case
         TreeNode<T> child = (node.left != null) ? node.left : node.right;
         replace(parent, node, child);
     }

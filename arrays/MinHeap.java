@@ -5,22 +5,56 @@ class MinHeapException extends Exception {
         super(message);
     }
 }
-public class MinHeap<T extends Comparable<T>> extends DynamicArray<T> {
+public class MinHeap<T extends Comparable<T>> {
 
     private DynamicArray<T> heap;
 
-    public MinHeap() throws DynamicArrayException, StaticArrayException{
-        super();
-        try {
-            DynamicArray<T> heap = new DynamicArray<>();
-        } catch (StaticArrayException e) {
-            System.out.println("error: " + e.getMessage());
+    public MinHeap(T[] arr) throws DynamicArrayException {
+        this();
+        for (T item: arr) {
+            add(item);
         }
     }
 
-    private int compareTo(T a, T b) {
-        return a.compareTo(b);
+    public MinHeap() throws DynamicArrayException{
+        try {
+            this.heap = new DynamicArray<>();
+        } catch (StaticArrayException e) {
+            throw new DynamicArrayException(
+                "Failed to create internal storage: " + e.getMessage()
+            );
+        }
     }
+
+    @Override
+    public String toString() {
+        int size, capacity;
+        size = heap.length(); capacity = heap.capacity();
+        
+        StringBuilder arrSpecs = new StringBuilder("Size/Cap: " +size+"/"+capacity);
+        String arrayType = this.getClass().getSimpleName();
+        String type = "Empty";
+        try {
+            if (heap.get(0) != null) type = heap.get(0).getClass().getSimpleName();
+
+            StringBuilder sb = new StringBuilder(arrayType+"<"+type+">:" +arrSpecs+" [");
+
+            for (int i = 0; i < capacity; i++) {
+                sb.append(heap.get(i));
+                if (i < capacity - 1) sb.append(", ");
+            }
+            sb.append("]");
+            return sb.toString();
+        } catch (StaticArrayException e) {
+            System.out.println("error printing: " +e.getMessage());
+        }
+
+        return toString();
+    }
+
+    // private int compareTo(T a, T b) {
+    //     return a.compareTo(b);
+    // }
 
     public void add(T value) {
         heap.append(value);
@@ -40,7 +74,11 @@ public class MinHeap<T extends Comparable<T>> extends DynamicArray<T> {
     public T removeMin() throws MinHeapException{
         if (isEmpty()) throw new MinHeapException("Empty heap");
         try {
-            return heap.get(0); // placeholder - TODO
+            if (heap.length() == 1) return heap.pop();
+            T minValue = heap.get(0);
+            heap.set(0, heap.pop());
+
+            return minValue; // placeholder - TODO
         } catch (StaticArrayException e) {
             System.out.println("error: " + e.getMessage());
         }
@@ -79,8 +117,15 @@ public class MinHeap<T extends Comparable<T>> extends DynamicArray<T> {
         }
     }
 
-    private void percolateDown(T child) {
-
+    private void percolateDown(int parent) {
+        int k = heap.length();
+        while (0 <= parent && parent < k) {
+            int swap;
+            int left = 2 * parent + 1;
+            int right = 2 * parent + 2;
+        }
     }
+
+    private void percolateDown(T parent, int k) {}
 
 }

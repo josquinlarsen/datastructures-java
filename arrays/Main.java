@@ -15,9 +15,19 @@ public class Main {
 
         MinHeap<Integer> h = new MinHeap<>();
         
-        for (int i = 10; i > -1; i--) {
+        for (int i = 10; i > 0; i--) {
             h.add(i);
-            System.out.println(h);
         }
+
+        System.out.println(h);
+
+        for (int i = 1; i < 4; i++) {
+            h.add(i - (2 * i));
+        }
+
+        System.out.println(h);
+
+
+
     }
 }

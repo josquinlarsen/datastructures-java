@@ -20,10 +20,18 @@ public class Main {
         }
 
         System.out.println(h);
-        h.removeMin();
+        for (int i = 0; i < 10; i++) {
+            try {
+                int node = h.removeMin();
+                System.out.println("removed: "+node);
+                System.out.println(h);
+            } catch (MinHeapException e) {
+                System.out.println(e.getMessage());
+            }
+        }
         
 
-        System.out.println(h);
+        // System.out.println(h);
 
     }
 }

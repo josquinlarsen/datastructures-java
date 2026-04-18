@@ -30,6 +30,8 @@ public class MinHeap<T extends Comparable<T>> {
     public String toString() {
         int size, capacity;
         size = heap.length(); capacity = heap.capacity();
+
+        if (size == 0) return "Empty heap";
         
         StringBuilder arrSpecs = new StringBuilder("Size/Cap: " +size+"/"+capacity);
         String arrayType = this.getClass().getSimpleName();
@@ -126,18 +128,23 @@ public class MinHeap<T extends Comparable<T>> {
     private void percolateDown(int parent, int k) {
         try {
             while (0 <= parent && parent < k) {
+                // System.out.println(heap);
                 int swap = -1;
                 int left = 2 * parent + 1;
                 int right = 2 * parent + 2;
 
-                int checkLeft = heap.get(parent).compareTo(heap.get(left));
-                int checkRight = heap.get(parent).compareTo(heap.get(right));
-                if (right < k && checkRight < 0) {
-                    int checkLR = heap.get(left).compareTo(heap.get(right));
-                    swap = (checkLR <= 0) ? left : right;
+                if (right < k) {
+                    int checkRight = heap.get(parent).compareTo(heap.get(right));
+                    if (checkRight > 0) {
+                        int checkLR = heap.get(left).compareTo(heap.get(right));
+                        swap = (checkLR <= 0) ? left : right;
+                    }
                 }
-                if (left < k && checkLeft < 0) {
-                    swap = left;
+                if (left < k) {
+                    int checkLeft = heap.get(parent).compareTo(heap.get(left));
+                    if (checkLeft > 0 && swap < 0) {
+                        swap = left;
+                    }
                 }
                 if (swap < 0) {
                     return;

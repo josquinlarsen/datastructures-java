@@ -72,12 +72,14 @@ public class MinHeap<T extends Comparable<T>> {
     }
 
     public T removeMin() throws MinHeapException{
-        if (isEmpty()) throw new MinHeapException("Empty heap");
         try {
+            if (isEmpty()) {
+                throw new MinHeapException("Empty heap");
+            }
             if (heap.length() == 1) return heap.pop();
             T minValue = heap.get(0);
             heap.set(0, heap.pop());
-
+            percolateDown(0);
             return minValue; // placeholder - TODO
         } catch (StaticArrayException e) {
             System.out.println("error: " + e.getMessage());
@@ -118,14 +120,35 @@ public class MinHeap<T extends Comparable<T>> {
     }
 
     private void percolateDown(int parent) {
-        int k = heap.length();
-        while (0 <= parent && parent < k) {
-            int swap;
-            int left = 2 * parent + 1;
-            int right = 2 * parent + 2;
+        percolateDown(0, heap.length());
+    }
+
+    private void percolateDown(int parent, int k) {
+        try {
+            while (0 <= parent && parent < k) {
+                int swap = -1;
+                int left = 2 * parent + 1;
+                int right = 2 * parent + 2;
+
+                int checkLeft = heap.get(parent).compareTo(heap.get(left));
+                int checkRight = heap.get(parent).compareTo(heap.get(right));
+                if (right < k && checkRight < 0) {
+                    int checkLR = heap.get(left).compareTo(heap.get(right));
+                    swap = (checkLR <= 0) ? left : right;
+                }
+                if (left < k && checkLeft < 0) {
+                    swap = left;
+                }
+                if (swap < 0) {
+                    return;
+                }
+                swap(parent, swap);
+                parent = swap;    
+            }
+        } catch (StaticArrayException e) {
+            System.out.println("Error: " +e.getMessage());
         }
     }
 
-    private void percolateDown(T parent, int k) {}
 
 }

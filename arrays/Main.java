@@ -20,14 +20,10 @@ public class Main {
         }
 
         System.out.println(h);
-
-        for (int i = 1; i < 4; i++) {
-            h.add(i - (2 * i));
-        }
+        h.removeMin();
+        
 
         System.out.println(h);
-
-
 
     }
 }

@@ -79,10 +79,11 @@ public class MinHeap<T extends Comparable<T>> {
                 throw new MinHeapException("Empty heap");
             }
             if (heap.length() == 1) return heap.pop();
+
             T minValue = heap.get(0);
             heap.set(0, heap.pop());
             percolateDown(0);
-            return minValue; // placeholder - TODO
+            return minValue; 
         } catch (StaticArrayException e) {
             System.out.println("error: " + e.getMessage());
         }

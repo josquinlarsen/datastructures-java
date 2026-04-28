@@ -6,3 +6,15 @@ public class DynamicArrayException extends StaticArrayException {
     }
 }
 
+class InvalidIndexException extends DynamicArrayException {
+    public InvalidIndexException(String message) {
+        super(message);
+    }
+}
+
+class EmptyArrayException extends DynamicArrayException {
+    public EmptyArrayException(String message) {
+        super(message);
+    }
+}
+

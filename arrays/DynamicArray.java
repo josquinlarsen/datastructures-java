@@ -31,15 +31,15 @@ public class DynamicArray<T> extends StaticArray<T>{
     private void resize(int newCapacity) throws DynamicArrayException{
         if (newCapacity > 0 && newCapacity > size) {
             try {
-            StaticArray<T> newArray = new StaticArray<>(newCapacity);
- 
-            for (int i = 0; i < size; i++) {
-                newArray.data[i] = data[i];
-            }
-            data = newArray.data;
-            capacity = newCapacity;
+                StaticArray<T> newArray = new StaticArray<>(newCapacity);
+    
+                for (int i = 0; i < size; i++) {
+                    newArray.data[i] = data[i];
+                }
+                data = newArray.data;
+                capacity = newCapacity;
             } catch (StaticArrayException e) {
-                System.out.println("Resize error: " + e.getMessage());
+                throw new DynamicArrayException("Resize error: " + e.getMessage());
             }
         }
     }
@@ -59,9 +59,8 @@ public class DynamicArray<T> extends StaticArray<T>{
             try {
                 resize(capacity * 2);
             } catch (DynamicArrayException e) {
-                System.out.println("Resize error: " + e.getMessage());
+               System.out.println("Resize error: " + e.getMessage());
             }
-            
         }
         data[size] = item;
         size++;

@@ -63,19 +63,18 @@ public class StaticArray<T> {
         if (index < 0 || index > capacity - 1 ) {
             throw new InvalidIndexException("Index out of bounds");
         }
-        // if (data[index] == null) {
-        //     size++;
-        // }
         data[index] = item;
     }
 
-    public void append(T item) {
+    // better to overwrite or throw error ?
+    public void append(T item) throws FullArrayException{
+        if (size == capacity) throw new FullArrayException("Array is at max capacity");
         if (size < capacity) {
             data[size] = item;
             size++;
             return;
         } 
-        data[capacity - 1] = item;
+        // data[capacity - 1] = item;
     }
 
     public T pop() throws EmptyArrayException{

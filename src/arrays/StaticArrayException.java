@@ -17,3 +17,9 @@ class EmptyArrayException extends StaticArrayException {
         super(message);
     }
 }
+
+class FullArrayException extends StaticArrayException {
+    public FullArrayException(String message) {
+        super(message);
+    }
+}

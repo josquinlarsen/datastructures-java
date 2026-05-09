@@ -1,6 +1,7 @@
-import arrays.DynamicArray;
-import arrays.DynamicArrayException;
-import arrays.StaticArrayException;
+package src.hashmap;
+import src.arrays.DynamicArray;
+import src.arrays.DynamicArrayException;
+import src.arrays.StaticArrayException;
 
 class Entry<K, V> {
     protected K key;

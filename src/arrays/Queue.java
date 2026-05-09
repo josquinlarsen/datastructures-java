@@ -1,4 +1,4 @@
-package arrays;
+package src.arrays;
 
 class QueueException extends StaticArrayException {
     QueueException(String message) {

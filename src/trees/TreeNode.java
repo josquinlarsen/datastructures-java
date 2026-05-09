@@ -1,4 +1,4 @@
-package trees;
+package src.trees;
 public class TreeNode<T> {
     protected T data;
     protected TreeNode<T> parent;

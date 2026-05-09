@@ -1,4 +1,4 @@
-package arrays;
+package src.arrays;
 
 public class StaticArrayException extends Exception {
     public StaticArrayException(String message) {

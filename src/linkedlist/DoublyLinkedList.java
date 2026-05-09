@@ -1,4 +1,4 @@
-package linkedlist;
+package src.linkedlist;
 
 class DoublyLinkedListException extends LinkedListException {
     public DoublyLinkedListException(String message) {

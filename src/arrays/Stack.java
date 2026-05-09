@@ -1,4 +1,4 @@
-package arrays;
+package src.arrays;
 
 class StackException extends DynamicArrayException {
     StackException(String message) {

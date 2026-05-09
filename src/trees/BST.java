@@ -1,8 +1,8 @@
-package trees;
+package src.trees;
 
-import arrays.DynamicArray;
-import arrays.Stack;
-import arrays.StaticArrayException;
+import src.arrays.DynamicArray;
+import src.arrays.Stack;
+import src.arrays.StaticArrayException;
 
 class BSTException extends Exception{
     public BSTException(String message) {

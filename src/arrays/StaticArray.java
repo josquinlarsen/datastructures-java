@@ -1,4 +1,4 @@
-package arrays;
+package src.arrays;
 
 public class StaticArray<T> {
     // T = Generic, to handle flexible types

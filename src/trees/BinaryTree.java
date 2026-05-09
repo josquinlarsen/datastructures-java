@@ -1,4 +1,4 @@
-package trees;
+package src.trees;
 
 class BTException extends Exception{
     public BTException(String message) {

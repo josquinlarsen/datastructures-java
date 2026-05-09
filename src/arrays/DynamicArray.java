@@ -1,4 +1,4 @@
-package arrays;
+package src.arrays;
 
 public class DynamicArray<T> extends StaticArray<T>{
 

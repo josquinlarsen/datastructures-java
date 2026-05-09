@@ -1,4 +1,4 @@
-package arrays;
+package src.arrays;
 
 // better with built-ins?
 public class DisjointSetUnion {

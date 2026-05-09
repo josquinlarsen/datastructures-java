@@ -1,4 +1,4 @@
-package arrays;
+package src.arrays;
 
 class MinHeapException extends Exception {
     public MinHeapException(String message) {

@@ -1,4 +1,4 @@
-package linkedlist;
+package src.linkedlist;
 class LinkedListException extends Exception {
     public LinkedListException(String message) {
         super(message);

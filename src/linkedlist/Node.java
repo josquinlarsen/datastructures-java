@@ -1,4 +1,4 @@
-package linkedlist;
+package src.linkedlist;
 
 public class Node<T> {
     protected T data;

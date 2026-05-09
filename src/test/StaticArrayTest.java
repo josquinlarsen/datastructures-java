@@ -1,8 +1,10 @@
-package test;
-import arrays.StaticArray;
-import arrays.StaticArrayException;
+package src.test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import src.arrays.StaticArray;
+import src.arrays.StaticArrayException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StaticArrayTest {

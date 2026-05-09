@@ -1,4 +1,4 @@
-package arrays;
+package src.arrays;
 
 public class DynamicArrayException extends StaticArrayException {
     public DynamicArrayException(String message) {

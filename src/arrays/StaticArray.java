@@ -63,6 +63,7 @@ public class StaticArray<T> {
         if (index < 0 || index > capacity - 1 ) {
             throw new InvalidIndexException("Index out of bounds");
         }
+        if (data[index] == null) size++;
         data[index] = item;
     }
 

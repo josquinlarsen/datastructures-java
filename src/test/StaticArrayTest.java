@@ -133,7 +133,8 @@ public class StaticArrayTest {
             assertEquals(newArr.get(i), 13 + i);
         }
     }
-
+    
+    @Test
     void popTest02() throws StaticArrayException {
         StaticArrayException exception =
             assertThrows(StaticArrayException.class, () -> { 

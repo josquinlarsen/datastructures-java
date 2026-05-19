@@ -69,7 +69,7 @@ public class DynamicArrayTest {
     }
 
     @Test
-    void removeTest03() throws DynamicArrayException{
+    void removeTest03() throws DynamicArrayException {
         for (int i = 0; i < 17; i++) {
             arr.append(i + i);
         }
@@ -81,6 +81,79 @@ public class DynamicArrayTest {
         assertTrue(arr.isEmpty());
         assertEquals(arr.capacity(), 10);
         
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {-5, -1, 5, 15, 1009029})
+    void insertTest01(int invalidIndex) throws DynamicArrayException {
+        for (int i = 0; i < arr.capacity(); i++) {
+            arr.append(i);
+        }
+        DynamicArrayException exception =
+            assertThrows(DynamicArrayException.class, () -> { 
+            arr.insert(17, invalidIndex);
+        });
+        assertEquals("Invalid index", exception.getMessage());
+    }
+
+    @Test
+    void insertTest02() throws DynamicArrayException {
+        for (int i = 0; i < arr.capacity(); i++) {
+            arr.insert(17 - i, i);
+        }
+
+        assertEquals(arr.get(0), 17);
+        assertEquals(arr.get(arr.capacity() - 1), 14);
+        assertEquals(arr.capacity(), 4);
+    }
+
+    @Test
+    void insertTest03() throws DynamicArrayException {
+        int cap = arr.capacity();
+        for (int i = 0; i < (cap * 2) + 1; i++) {
+            arr.insert(17 - i, 0);
+        }
+
+        assertEquals(arr.capacity(), 16);
+        assertEquals(arr.get(arr.length() - 1), 17);
+        assertEquals(arr.get(0), 9);
+    }
+
+    @Test
+    void insertTest4() throws DynamicArrayException {
+        int cap = arr.capacity();
+        for (int i = 0; i < (cap * 2) + 1; i++) {
+            arr.insert(17 - i, 0);
+        }
+
+        int newSize = arr.length();
+        for (int i = 0; i < newSize; i++) {
+            assertEquals(arr.get(i), 9 + i);
+            // assertEquals(arr.get(newSize - 1 - i, 17 - i))
+        }
+    }
+
+    @Test
+    void popTest01() throws DynamicArrayException {
+        DynamicArrayException exception =
+            assertThrows(DynamicArrayException.class, () -> { 
+            arr.pop();
+        });
+        assertEquals("Array is empty", exception.getMessage());
+    }
+
+    @Test
+    void popTest02() throws DynamicArrayException {
+        for (int i = 0; i < 17; i++) {
+            arr.append(i + i);
+        }
+
+        while (!arr.isEmpty()) {
+            arr.pop();
+        }
+
+        assertTrue(arr.isEmpty());
+        assertEquals(arr.capacity(), 10);
     }
 
 }

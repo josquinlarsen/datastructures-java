@@ -6,7 +6,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import src.arrays.DynamicArray;
 import src.arrays.DynamicArrayException;
-import src.arrays.StaticArray;
 import src.arrays.StaticArrayException;
 
 import static org.junit.jupiter.api.Assertions.*;
